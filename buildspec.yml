@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - pip install requests -t index_photos/
+      - pip install requests -t search_photos/
+  build:
+    commands:
+      - cd index_photos && zip -r ../index-photos.zip . && cd ..
+      - cd search_photos && zip -r ../search-photos.zip . && cd ..
+      - cd presigned_url && zip -r ../presigned-url.zip . && cd ..
+      - aws lambda update-function-code --function-name index-photos --zip-file fileb://index-photos.zip --region us-east-1
+      - aws lambda update-function-code --function-name search-photos --zip-file fileb://search-photos.zip --region us-east-1
+      - aws lambda update-function-code --function-name get-presigned-url --zip-file fileb://presigned-url.zip --region us-east-1
