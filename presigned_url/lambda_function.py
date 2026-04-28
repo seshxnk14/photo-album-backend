@@ -32,7 +32,7 @@ def lambda_handler(event, context):
             'Bucket': BUCKET,
             'Key': filename,
             'ContentType': content_type,
-            'Metadata': metadata
+            'Metadata': {'customlabels': custom_labels} if custom_labels else {}
         },
         ExpiresIn=300
     )

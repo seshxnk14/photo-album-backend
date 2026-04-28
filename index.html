@@ -131,7 +131,8 @@
                 const uploadRes = await fetch(urlData.uploadUrl, {
                     method: 'PUT',
                     headers: {
-                        'Content-Type': file.type
+                        'Content-Type': file.type,
+                        'x-amz-meta-customlabels': customLabels
                     },
                     body: file
                 });
